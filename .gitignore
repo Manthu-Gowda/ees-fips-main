@@ -1,0 +1,50 @@
+# Django #
+*.log
+*.pot
+*.pyc
+*.sql
+__pycache__
+
+# Here's what to add to it:
+# Folders
+lib/
+media/
+test.py
+
+# Files
+cert.crt
+cert.key
+cert1.pem
+key1.pem
+
+# Finally, remember these files when making the new requirements file:
+compreq.txt
+db.sqlite3
+
+.DS_Store
+**/run_test.py
+
+
+#env 
+.env
+*.env
+.vscode/*
+
+csvs/
+pdfs/
+media/
+
+ees-env
+
+static/
+
+scripts/diagnostic_state.json
+
+localhost.crt
+localhost.key
+
+.sonar/**
+
+known_hosts*
+
+keys/**

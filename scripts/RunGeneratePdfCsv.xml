@@ -1,0 +1,38 @@
+<!-- <?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Author>Administrator</Author>
+    <Description>Run CSV + PDF generation at 02:30</Description>
+  </RegistrationInfo>
+
+  <Triggers>
+    <CalendarTrigger>
+      <StartBoundary>2025-12-01T02:30:00</StartBoundary>
+      <Enabled>true</Enabled>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+  </Triggers>
+
+  <Principals>
+    <Principal id="Author">
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <ExecutionTimeLimit>PT30M</ExecutionTimeLimit>
+  </Settings>
+
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\Users\Administrator\Documents\ees\envEes\Scripts\python.exe</Command>
+      <Arguments>manage.py run_generate_pdf_csv</Arguments>
+      <WorkingDirectory>C:\Users\Administrator\Documents\ees</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task> -->

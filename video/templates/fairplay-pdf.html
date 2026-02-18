@@ -1,0 +1,524 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</head>
+<body>
+    <style>
+        body {
+            font-family: \'Liberation Serif\', sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 0px;
+        }
+        .imgcontainer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* adds space between images */
+            flex-wrap: nowrap; /* force single line, optional */
+            padding: 0;
+        }
+
+        .vechile-img {
+            width: 420px;
+            height: 250px;
+            padding: 0;
+            margin: 0;
+        }
+        .bottomcontainer {
+            font-size: 14px;
+            padding: 0px 10px;
+        }
+        .right-column {
+            display: table-cell;
+            width: 50%;
+        }
+        .left-column {
+            font-size: x-large;
+            font-weight: bold;
+        }
+        .notice-box{
+            border: 2px solid black;
+            padding: 3px;
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: bold;
+
+        }
+
+        .notice-box-krsy {
+            border: 2px solid black;
+            padding: 3px;
+            font-size: 20px; /* Slightly smaller than before */
+            margin-bottom: 10px;
+            font-weight: bold;
+            line-height: 1.2; /* Tighter line spacing */
+        }
+
+        .krsy-warning {
+            font-size: 13.39px;
+            font-weight: bold;
+            color: red;
+            padding-left: -20px; /* Adjust this to visually align with "Plate #:" */
+        }
+
+        
+        .notice-box-hud{
+            border: 2px solid black;
+            padding-left: 16px;
+            padding-right: 16px;
+            font-size: large;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .notice-box p {
+            margin: unset;
+            padding: 1px;
+            font-size: 18px;
+        }
+        .notice-paragraph {
+            font-size: 16px; 
+            padding: 0px 2px;
+        }
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+        }
+        .vechile-img {
+            display: inline-block;
+            width: 45%;
+            padding: 10px;
+        }
+        .badge {
+            display: inline-block;
+            width: 100%;
+        }
+        .capture {
+            padding: 0px;
+            margin: 0px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+        .details-box {
+            border: 3px solid black;
+            padding: 5px;
+            margin-top: 20px;
+        }
+        .center {
+            text-align: center;
+            color: red;
+            font-size: 16px;
+            /* font-weight: bold; */
+        }
+        .link {
+            font-size: large;
+        }
+        .combined-column {
+            display: table-cell;
+            font-size: 20px;
+            font-weight: bold;
+            width: 50%;
+        }
+        .first-row {
+            display: -webkit-box;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        .first-column {
+            max-width: 70%;
+
+        }
+        .second-column {
+            min-width: 40%;
+        }
+        .second-column-wbr2 {
+            min-width: 40%;
+        }
+        .second-row {
+            width: 80%;
+            margin-top: 5px;
+        }
+        .img-container {
+            display: flex;
+            padding: 20px;
+            position:relative;
+            align-content: center;
+        }
+        .img-container-wbr2 {
+            display: flex;
+            padding: 0px;
+            position:relative;
+            align-content: center;
+        }
+        .first-row {
+             /* min-height: 1000px;  */
+            justify-content: space-between;
+        }
+        .badge {
+            object-fit: contain;
+            height: 140px;
+            width:auto;
+            margin-top: -40px;
+            margin-left: 120px;
+        }
+        .badge-wbr2 {
+            object-fit: contain;
+            height: 200px;
+            width:170px;
+            margin-top: -20px;
+            margin-left: 50px;
+        }
+        /* .combined-column {
+            min-height: 1307px;
+        } */
+       
+    </style>
+
+<div class="container">
+    <div class="combined-column">
+        <div class="first-row">
+            <div class="first-column">
+                {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                    <div style="font-size: 18px; font-weight: 200; width: 120%;">
+                        <p>{{ address_part_1|linebreaksbr }}<br>{{ address_part_2 }}
+                        {% if agency.address_2 != 'n/a' %}
+                            {{agency.address_2|linebreaksbr}}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>Fairplay Colorado<br>
+                        901 Main Street<br>
+                        PO Box 267<br>
+                        Fairplay, CO 80440
+                    </p>
+                {% endif %}
+            </div>
+            {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                <div class="second-column-wbr2">
+                    <div class="img-container-wbr2">
+                        <img alt="badge" class="badge-wbr2" src="{{agency.badge_url}}" />
+                    </div>
+                </div>
+            {% else %}
+                <div class="second-column">
+                    <div class="img-container">
+                        <img alt="badge" class="badge" src="{{agency.badge_url}}" />
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="second-row">
+            {% if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+            <p style="color: black; font-weight: bold; border-bottom: 2px solid black; display: inline-block; margin-bottom: 6px;">
+                CIVIL VIOLATION
+            </p>
+                <p style="font-weight: bold;">
+                    Registered Owner: <br>
+                    {{per.first_name}} {{per.middle}} {{per.last_name}}<br>
+                    {{per.address}} <br>
+                    {{per.city}}, {{per.state}} {{per.zip}}
+                </p>
+            {% else %}
+                <p style="font-weight: normal;">
+                    {{per.first_name}} {{per.middle}} {{per.last_name}}<br>
+                    {{per.address}} <br>
+                    {{per.city}}, {{per.state}} {{per.zip}}
+                </p>
+            {% endif %}
+        </div>
+        <br>
+        <div class="notice-paragraph">
+
+            <p style=" font-weight: normal; ">Please take notice that the vehicle described and pictured on this citation was involved in a speeding violation. Under {{cit.state}} State Law, and Local Ordinance, as the
+                <span style="color: red; font-weight: bold;">registered owner or lessee</span>, you are liable for the violation. 
+                {% if cit.is_warning == False %}
+                    The penalty for this violation is a fine in the amount noted at the top of the citation .<span style="color: red; font-weight: bold"> No points will be assessed</span> against your driver's license. No reporting measures are made to insurance
+                    companies.
+                    {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                        or contest it
+                    {% endif %}
+                    <!-- {% if agency.state == 'CO' %}
+                        <p style="text-align: center;"><a href="{{agency.pay_portal}}" style="display: inline-block; margin: 0 auto; font-size: 1.3em;">{{agency.pay_portal}}</a></p>
+                    {% else %}
+                        <a href="{{agency.pay_portal}}">{{agency.pay_portal}}</a>.
+                    {% endif %} -->
+                    {%  if agency.name != 'Federalsburg Police Department' %}
+                        {% if agency.state == 'CO' or  agency.name == 'Ward 2 West Baton Rouge Parish' %} 
+                            
+                        {% else %}
+                            To contest the citation or if you have questions about the citation please call {{agency.phone}}.
+                        {% endif %}
+                    {% else %}
+                        <p style="color: red; font-size: 17px;">
+                            Maryland law states that the person issued with a violation 
+                            may contest the charge, but failure to pay the citation on or 
+                            before the due date may result in the suspension of your 
+                            vehicle registration or the inability to renew your 
+                            registration.
+                        </p>
+                    {% endif %}
+                    
+                {% else %}
+                    There is no penalty for this violation and no points will be assessed against your driver's license.
+                {% endif %}
+
+                {% if agency.state == 'CO' %}
+
+                {% elif agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                    <br><br>If you fail to pay the citation on or before the due date or fail to appear in the designated court on the date assigned, you forfeit your right to contest. </p>
+                
+                {% elif agency.name != 'Federalsburg Police Department' %}
+                    <br>Local ordinance states that the person issued with a violation may contest the charge, but upon failure to pay the citation on or before the due date or failure to appear in the designated court on the date assigned, you then forfeit your right to contest.</p>
+                
+                {% endif %}
+            <br>
+            <br>
+            <br>
+            {% if cit.is_warning == False and agency.name != 'Federalsburg Police Department' %}
+                <p style=" font-weight: normal;"><b style="color: red">Collections Warning:</b>
+                    {% if agency.name == 'Fairplay Colorado' %}
+                        <br>If you fail to pay this penalty on or before the due date, it can result in the violation being turned over to collections. An increase of 25% of the citation will be added at that time.</p>
+                    {% elif agency.name == 'Ward 2 West Baton Rouge Parish' or agency.name == 'Marksville Police Department' or agency.name == 'Clayton Police Department' or agency.name == 'Fairplay Colorado' %}
+                        <br>Failure to pay this penalty will result in the violation being turned over to the <span style="color: darkorange; font-weight: bold;">Louisiana Office of Debt Recovery</span>. 
+                        Louisiana RS 47:1676 allows LODR to "Aggressively pursue the collection of accounts or claims due and payable to the state of Louisiana through all reasonable means". This will increase your fine amount.</p>
+                    {% else %}
+                        <br>Failure to pay this penalty will result in the violation being turned over to collections. An increase of 30% of the citation will be added at that time.</p>
+                    {% endif %}
+            {% endif %}
+        </div>
+        <br>
+      </div>
+    <div class="right-column">
+        <div class="notice-box">
+            <p style="color: black;">
+                {% if agency.name == 'Federalsburg Police Department' %}
+                    Notice of Vehicle Violation Of {{cit.state}} {{agency.state_rs}}
+                    <br>{{agency.state_rs}}
+                {% elif agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                    Notice of Vehicle Violation of {{agency.state_rs}} Issued<br>
+                    in Accordance with Louisiana R.S.32:46-48
+                {% elif agency.name == 'Fairplay Colorado' %}
+                    Notice of Violation of Ordinance: Ordinance No. 9<br>
+                {% else %}
+                    Notice of Violation of Ordinance
+                {% endif %}
+            </p>
+        </div>
+        <div class="notice-box">
+            <table>
+                <tbody>
+                <tr>
+                    <td style="color: red;">Due Date:</td>
+                    <td style="color: red;">{{due_date}}</td>
+                </tr>
+                <tr>
+                    <td style="color: red;">Amount Due:</td>
+                    {% if cit.is_warning == False %}
+                        <td style="color: red;">$ {{cit.fine}}</td>
+                    {% else %}
+                        <td style="color: red;">$ 0</td>
+                    {% endif %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="notice-box-krsy">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 1px; white-space: nowrap;">Citation #:</td>
+                        <td style="padding-left: 0;">{{cit.citationID}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 1px; white-space: nowrap;">Plate #:</td>
+                        <td style="padding-left: 0;">{{veh.plate}} ({{veh.lic_state}})</td>
+                    </tr>
+                    <tr>
+                        <td class="krsy-warning" colspan="3">
+                            Citation must be entered in payment system exactly as displayed.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <div class="notice-box" style="font-size: 16px;  padding: 1px">
+            {% if cit.is_warning == False %}
+                {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                    <p style="color:red;">{{agency.court_comments|safe}}</p>
+                {% else %}
+                    {{agency.court_comments|safe}}
+                {% endif %}
+                
+            {% else %}
+                <p style="color:red;">This is a warning citation no action is required. Please slow down.</p>
+            {% endif %}
+        </div> -->
+        <br>
+        {% if s3_url_qr_code %}
+            {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                <div style="margin-left:150px; margin-top: 90px;">
+                    <img src="{{s3_url_qr_code}}" alt="QR_CODE" width="140px" height="140px">
+                </div>
+            {% elif agency.name == 'Fairplay Colorado' %}
+                <div class="notice-box-hud" style="margin-left: 5px;">
+                    <p style="color: red; font-weight: bold; font-size: 22px; margin-bottom: 10px; margin-top: 10px; margin-left: 10px;">PAYMENT OPTIONS:</p>
+
+                    <!-- Box 1: Online Payment -->
+                    <div style="border: 2px solid rgb(7, 7, 7); padding: 10px; margin-top: 10px; margin-bottom: 10px; width: auto; margin-bottom: 20px;">
+                        <p style="font-size: 18px; color: red; margin: 0;">
+                            <strong style="margin-bottom: 10px;"><u>For Online Payments Please Visit:</u></strong>
+                            <br>
+                            <a href="https://www.fairplayco.us/municipal-court/page/photo-radar-violations" target="_blank" style="color: red; text-decoration: underline;">
+                                https://www.fairplayco.us/municipal-<br>court/page/photo-radar-violations
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Box 2: Mailing Info -->
+                    <div style="border: 2px solid rgb(7, 7, 7); padding: 10px; margin-bottom: 10px;  width: auto;">
+                        <p style="font-size: 16px; color: black; margin: 0;">
+                            <strong>If you would like to contest the citation or if 
+                                    you have questions please call  
+                                    719.836.2622 option 3. You have 30 days 
+                                    from the violation date to contest the civil 
+                                    penalty or pay the fine.</strong><br>
+                        </p>
+                    </div>
+
+                    <!-- Box 3: QR Code -->
+                    <!-- <div style="border: 2px solid rgb(7, 7, 7); padding: 10px; width: auto; margin-left: 5px;">
+                        <img src="{{s3_url_qr_code}}" alt="QR_CODE" width="100px" height="100px">
+                        <span style="color: red; margin-left: 50px; vertical-align: middle; margin-bottom: 50px;">Scan QR Code For Payment</span>
+                    </div> -->
+                    <table style="border: 2px solid rgb(7, 7, 7); padding: 5px; margin-bottom: 10px; width: 100%;">
+                        <tr style="vertical-align: middle;">
+                            <td>
+                                <img src="{{s3_url_qr_code}}" alt="QR_CODE" width="100px" height="100px">
+                            </td>
+                            <td style="padding-left: 20px;">
+                                <span style="color: red; font-weight: bold; font-size: 22px;">Scan QR Code <br> For Payment</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            {% else %}
+                <div style="left:300px">
+                    <img src="{{s3_url_qr_code}}" alt="QR_CODE" width="140px" height="='140px">
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+<div class="imgcontainer">
+    <img alt="lidar gun" class="capture vechile-img" src="{{speed_pic_base_url}}{{cit.speed_pic}}" style="width: 420px; height: 250px;"><img alt="license plate" class="capture vechile-img" src="{{plate_pic_base_url}}{{cit.plate_pic}}" style="width: 420px; height: 250px;">
+</div>
+<div class="bottomcontainer">
+    <div class="details-box">
+        <table>
+            <tbody>
+            <tr>
+                <td><b>Violation Details</b></td>
+                <td>
+                    {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                        <b>Date: </b>{{offence_time|date:"m/d/Y"}} <b>Time: </b>{{offence_time|date:"h:i:s A"}} <b>Location: </b>{{cit.location_name}}
+                    {% else %}
+                        <b>Date: </b>{{total.offense_date}} <b>Time: </b>{{total.offense_time}} <b>Location: </b>{{cit.location_name}}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td><b>In Violation of Ordinance:</b></td>
+                <td>
+                    {% if agency.name == 'Fairplay Colorado' %}
+                        {{ agency.state_rs }} <b>Issued By:</b>
+                    {% else %}
+                        {{ agency.state_rs }} <b>Issued By</b>
+                    {% endif %}
+
+                    {% if agency.name == 'Morrison Colorado PD' %}
+                        Town Of
+                    {% elif agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                        <span style="font-weight: bold;">Ward 2 West Baton Rouge Constable</span>
+                    {% elif agency.name != 'Fairplay Colorado' %}
+                        City Of
+                    {% endif %}
+
+                    {% if agency.name != 'Ward 2 West Baton Rouge Parish' %}
+                        {{ agency.name }}
+                    {% endif %}
+
+                    {% if agency.state != 'CO' and agency.name != 'Ward 2 West Baton Rouge Parish' %}
+                        ,{{ agency.state }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td><b>Posted speed Recorded:</b></td>
+                <td>{{cit.posted_speed}} mph</td>
+            </tr>
+            <tr>
+                <td><b>Vehicle speed:</b></td>
+                <td>{{cit.speed}} mph</td>
+            </tr>
+            <tr>
+                <td><b>Witnessed 
+                    {% if agency.state == 'CO' %}
+                    or 
+                    {% else %} 
+                    &amp; 
+                    {% endif %} 
+                    Reviewed by</b></td>
+                <td><b>Operating Officer Badge #</b>
+                    {%  if agency.name == 'Ward 2 West Baton Rouge Parish' %}
+                        C-{{vid.officer_badge}}</td>
+                    {% else %}
+                        {{vid.officer_badge}}</td>
+                    {% endif %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="bottomcontainer">
+    <p style="text-align: center;">Based on an inspection of the photos that are attached to this citation and the corresponding verified speed data the pictured 
+        vehicle was involved in a violation of traffic laws. The recorded and attached images are prima facie evidence of that traffic law violation.</p>
+</div>
+<div class="center">
+    {% if cit.is_warning == False %}
+        <p>
+            Please Pay The Fine Amount of: 
+            <span style="color: red;">$ {{ cit.fine }}</span>
+            by following the instructions at<br>
+            <br> 
+            <a href="{{ agency.pay_portal }}">{{ agency.pay_portal }}</a>
+        </p>
+
+        {% if agency.name == 'Morrison Colorado PD' %}
+            <p style="color: blue; text-align: center;">
+                If you would like to pay by check. Please make check payable to:<br>
+                Town of Morrison<br>
+                321 Highway 8<br>
+                Morrison Co 80465
+            </p>
+        {% elif agency.name == 'Federalsburg Police Department' %}
+            <p style="color: red; text-align: center;">
+                If you wish to pay by check, please make check payable to:<br>
+                Town of Federalsburg<br>
+                118 N Main Street<br>
+                Federalsburg, Maryland 21632
+            </p>
+        {% endif %}
+    {% else %}
+        <p>Please drive slow and be safe.</p>
+    {% endif %}
+</div>
+</body>
+</html>

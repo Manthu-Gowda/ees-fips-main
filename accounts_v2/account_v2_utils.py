@@ -1,0 +1,28 @@
+def extract_fields_for_register_view(validated_data):
+    return {
+        "first_name" : validated_data.get('firstName'),
+        "last_name" : validated_data.get('lastName'),
+        "user_name" : validated_data.get('userName'),
+        "email" : validated_data.get('email'),
+        "password" : validated_data.get('password'),
+        "is_adjudicator" : validated_data.get('isAdjudicator'),
+        "is_supervisor" : validated_data.get('isSupervisor'),
+        "is_court" : validated_data.get('isCourt'),
+        "is_approved_table_view" : validated_data.get('isApprovedTableView'),
+        "is_reject_view" : validated_data.get('isRejectView'),
+        "is_csv_view" : validated_data.get('isCSVView'),
+        "is_add_user_view" : validated_data.get('isAddUserView'),
+        "is_add_road_location_view" : validated_data.get('isAddRoadLocationView'),
+        "is_edit_fine_view" : validated_data.get('isEditFineView'),
+        "is_submission_view" : validated_data.get('isSubmissionView'),
+        "is_court_preview" : validated_data.get('isCourtPreview'),
+        "is_add_court_date" : validated_data.get('isAddCourtDate'),
+        "is_agency_adjudication_bin_view" : validated_data.get('isAgencyAdjudicationBinView'),
+        "is_review_bin_view" : validated_data.get('isReviewBinView'),
+        "is_pre_odr_view" : validated_data.get('isPreODRView'),
+        "is_odr_view" : validated_data.get('isODRView'),
+        "is_view_report_view" : validated_data.get('isViewReportView'),
+        "is_reminder_view" : validated_data.get('isReminderView'),
+        "is_total_ticket" : validated_data.get('isTotalTicket'),
+        "is_daily_report" : validated_data.get('isDailyReport')
+    }

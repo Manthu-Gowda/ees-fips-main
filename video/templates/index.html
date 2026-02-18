@@ -1,0 +1,154 @@
+{% extends "ees-base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+    <style>
+        h1 {text-align: center;}
+        h2 {text-align: center;}
+        form {text-align: center;}
+        div {text-align: center;}
+        .main {position: absolute;
+               top: 0%;
+               left: 42.5%;}
+    </style>
+        {% if user.is_authenticated %}
+        <div class="main">
+
+            {% if permissions.station is not None%}
+            <h1>{{ permissions.station }} Home Page</h1>
+            {% else %}
+            <h1>Super Admin Home Page</h1>
+            {% endif %}
+
+            {% if permissions.isAdjudicator %}
+            <form action="/ees/adjudication">
+                <input type="submit" value="Adjudicator View"><br>
+            </form>
+            {% endif %}
+            <p></p>
+            <p></p>
+            
+            {% if permissions.isSupervisor %}
+            <form action="/ees/supervisor">
+                <input type="submit" value="Supervisor View"><br>
+            </form>
+            {% endif %}
+            <p></p>
+            <p></p>
+            {% if station_api_key == 'n/a' %}
+            <form action="/ees/duncan-auto">
+                <input type="submit" value="Submissions View"><br>
+            </form>
+            {% endif %}
+            <p></p> 
+            <p></p>
+
+            {% if permissions.isAdjudicator %}
+            <!-- <form action="view-cits">
+                <input type="submit" value="View Citations"><br>
+            </form>
+            <p></p>
+            <p></p> -->
+            {% endif %}
+
+            {% if permissions.isAdjudicator %}
+            <form action="/ees/view-csv">
+                <input type="submit" value="CSV View"><br>
+            </form>
+            {% endif %}
+            <p></p>
+            <p></p>
+
+            {% if permissions.isSupervisor %}
+            <form action="/ees/rejects">
+                <input type="submit" value="Rejects"><br>
+            </form>
+            <p></p>
+            <p></p>
+            <form action="/ees/view-app-cits">
+                <input type="submit" value="Approved Table"><br>
+            </form>
+            {% endif %}
+            <p></p>
+            <p></p>
+
+            {% if permissions.isCourt %}
+            <form action="/ees/court">
+                <input type="submit" value="Court Preview"><br>
+            </form>
+            {% endif %}
+            <p></p>
+            <p></p>
+
+            {% if permissions.isAdmin %}
+            <form action="/accounts/register">
+                <input type="submit" value="Add Users"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+
+            {% if permissions.isAdmin %}
+            <form action="/ees/view-road-locations">
+                <input type="submit" value="Road Locations"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+
+            {% if permissions.isAdmin %}
+            <form action="/ees/add-fine">
+                <input type="submit" value="Edit Fines"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+
+            {% if permissions.isAdmin %}
+            <form action="/ees/add-court-date">
+                <input type="submit" value="Add Court Date"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+
+            {% if context.user_id == 153 %}
+            <form action="/ees/pre_odr_view">
+                <input type="submit" value="Pre ODR View"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+            
+            {% if context.user_id in context.list_of_ids %}
+            <form action="/ees/reports">
+                <input type="submit" value="View Reports"><br>
+            </form>
+            <p></p>
+            <p></p>
+            {% endif %}
+
+            <p></p>
+            <p></p>
+            {% if permissions.isSuperAdmin %}
+            <form action="/accounts/customer/add">
+                <input type="submit" value="Add Customer"><br>
+            </form>
+            <br>
+            <form action="/accounts/customer/view_agency">
+                <input type="submit" value="Agencies"><br>
+            </form>
+            {% endif %}
+        </div>        
+        {% else %}
+            <h1>Home Page</h1>
+            <h2>User not logged in, please login.</h2>
+
+            <form action="/accounts/login">
+                <input type="submit" value="Login"><br>
+            </form>
+        {% endif %}
+
+{% endblock %}

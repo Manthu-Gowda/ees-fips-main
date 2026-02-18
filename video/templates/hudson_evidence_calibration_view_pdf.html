@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: \'Liberation Serif\', sans-serif;
+        font-size: 24px;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <table width="100%" style="border-collapse: collapse">
+      <tr>
+        <!-- LEFT -->
+        <td
+          width="25%"
+          style="font-size: 20px; vertical-align: middle; text-align: left"
+        >
+          <strong>Town of Hudson</strong><br />
+          Hudson Police Dept.<br />
+          50 S. Beech St.<br />
+          Hudson, CO 80642
+        </td>
+
+        <!-- CENTER -->
+        <td
+          width="20%"
+          style="
+            vertical-align: middle;
+            text-align: center;
+            padding: 0%;
+            margin: 0%;
+          "
+        >
+          <img src="{{ data.badge_url }}" height="280px" />
+        </td>
+
+        <!-- RIGHT -->
+        <td width="50%" style="vertical-align: middle; padding: 0%">
+          <div
+            style="
+              display: inline-block;
+              border: 2px solid #000;
+              padding: 6px 10px;
+              font-size: 22px;
+              font-weight: bold;
+              text-align: left;
+              width: 95%;
+              line-height: 60px;
+              min-height: 60px;
+            "
+          >
+            Evidence Calibration Report
+          </div>
+          <br />
+          <!-- Evidence Info Box (exactly below) -->
+          <div
+            style="
+              display: inline-block;
+              border: 2px solid #000;
+              padding: 8px 10px;
+              font-size: 20px;
+              text-align: left;
+              margin-top: 10px;
+              width: 95%;
+              line-height: 1.4;
+              min-height: 60px;
+            "
+          >
+            <div style="margin-bottom: 12px">
+              <strong>Evidence ID :</strong> {{ data.evidence_ID }}
+            </div>
+
+            <div style="margin-bottom: 12px">
+              <strong>Plate # :</strong> {{ data.plate }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- IMAGES ROW -->
+    <table style="border-collapse: collapse; margin-top: 80px">
+      <tr>
+        <!-- LEFT IMAGE -->
+        <td style="padding: 0; margin: 0; text-align: left; width: 500px">
+          <img
+            src="{{ data.speed_pic }}"
+            alt="Speed Image"
+            style="display: block; width: 488px; height: 320px"
+          />
+        </td>
+
+        <!-- RIGHT IMAGE -->
+        <td
+          style="padding-left: 40px; margin: 0; text-align: left; width: 500px"
+        >
+          <img
+            src="{{ data.license_pic }}"
+            alt="License Plate Image"
+            style="display: block; width: 488px; height: 320px"
+          />
+        </td>
+      </tr>
+    </table>
+
+    <!-- FOOTER DETAILS -->
+    <table
+      width="100%"
+      style="
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-top: 80px;
+      "
+    >
+      <tr>
+        <!-- LEFT BOX -->
+        <td
+          width="50%"
+          style="vertical-align: top; padding: 8px 10px; font-size: 20px"
+        >
+          <div style="margin-bottom: 12px">
+            <strong>Evidence ID :</strong> {{ data.evidence_ID }}
+          </div>
+          <div style="margin-bottom: 12px">
+            <strong>Plate # :</strong> {{ data.plate }}
+          </div>
+          <div style="margin-bottom: 12px">
+            <strong>Evidence Time :</strong> {{ data.evidence_time }}
+          </div>
+          <div style="margin-bottom: 12px">
+            <strong>Evidence Date :</strong> {{ data.evidence_date }}
+          </div>
+        </td>
+
+        <!-- RIGHT BOX -->
+        <td
+          width="50%"
+          style="vertical-align: top; padding: 8px 10px; font-size: 20px"
+        >
+          <div style="margin-bottom: 12px">
+            <strong>Evidence Speed :</strong> {{ data.evidence_speed }}
+          </div>
+          <div style="margin-bottom: 12px">
+            <strong>Camera Speed :</strong> {{ data.camera_speed }}
+          </div>
+          <div style="margin-bottom: 12px">
+            <strong>Badge # :</strong> {{ data.badge_id }}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

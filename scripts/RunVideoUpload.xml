@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Date>2025-12-01T08:00:00</Date>
+    <Author>EC2-Window-FIPS-enabled\Administrator</Author>
+    <Description>Run video upload job every minute</Description>
+  </RegistrationInfo>
+
+  <Triggers>
+  <TimeTrigger>
+    <StartBoundary>2025-12-17T06:00:00</StartBoundary>
+    <Enabled>true</Enabled>
+    <Repetition>
+      <Interval>PT1M</Interval>
+      <StopAtDurationEnd>false</StopAtDurationEnd>
+    </Repetition>
+  </TimeTrigger>
+</Triggers>
+
+  <Principals>
+    <Principal id="Author">
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <ExecutionTimeLimit>PT30M</ExecutionTimeLimit>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+  </Settings>
+
+  <!-- <Actions Context="Author">
+    <Exec>
+      <Command>C:\Users\Administrator\Documents\ees\envEes\Scripts\python.exe</Command>
+      <Arguments>manage.py run_video_upload</Arguments>
+      <WorkingDirectory>C:\Users\Administrator\Documents\ees</WorkingDirectory>
+    </Exec>
+  </Actions> -->
+  <Actions Context="Author">
+    <Exec>
+      <Command>cmd.exe</Command>
+      <Arguments>/c "set PYTHONPATH=C:\Users\Administrator\Documents\ees &amp;&amp; cd /d C:\Users\Administrator\Documents\ees &amp;&amp; C:\Users\Administrator\Documents\envEes\Scripts\python.exe manage.py run_video_upload"</Arguments>
+      <WorkingDirectory>C:\Users\Administrator\Documents\ees</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

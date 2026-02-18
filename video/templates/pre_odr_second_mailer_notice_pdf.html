@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Notice of Outstanding Debt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+        .container {
+            /* max-width: 750px; */
+            margin: auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 18px;
+        }
+        .address-info {
+            text-align: left;
+            /* margin-bottom: 15px; */
+            margin-left: 70px;
+            font-size: 16px;
+        }
+        .address-info span {
+            display: block;
+        }
+        .case-header {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: left;
+        }
+        .case-header span {
+            display: block;
+        }
+        .content {
+            margin-top: 15px;
+        }
+        .footer {
+            margin-top: 25px;
+            font-size:18px;
+            color: #555;
+        }
+        .highlight {
+            font-weight: bold;
+            color: rgb(17, 17, 17);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .badge-qr {
+            position: absolute;
+            top: 150px;
+            right: 0;
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-end; 
+            gap: 20px; 
+        }
+
+        .badge-qr img {
+            max-width: 130px;
+            height: 130px;
+        }
+
+        .first-column {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="first-column">
+                    <p>
+                        {{agency_name}}<br>
+                        {{agency_address}}<br>
+                        {% if agency_address_2 != 'n/a' %}
+                            {{agency_address_2}}</p>
+                        {% endif %}
+                    </p>
+            </div>
+            <div class="case-header">
+                <span >Date: {{ date }}</span>
+                <span><strong>Citation ID #:</strong> <strong>{{ citation.citationID }}</strong></span>
+            </div>
+            <p>
+                <span class="highlight">Notice of Outstanding Debt</span>: This notification is being sent to inform you that failure to submit payment for <br>
+                <span class="highlight">TRAFFIC VIOLATION</span> owed to 
+                <span class="highlight">{{ agency_name }}</span> 
+                has required the office to take further action in collection of this debt.
+            </p>
+            <div class="address-info">
+                <br>
+                <span>{{ unpaidcitation.full_name }}</span>
+                <span>{{ citation.person.address }}</span>
+                <span>{{ citation.person.city }}, {{ citation.person.state }} {{ citation.person.zip }}</span>
+                <br>
+            </div>
+            <div class="badge-qr">
+                <img src="{{ mar_badge }}" alt="Agency Badge" style="margin-right: 40px;">
+                <img src="{{ mar_secure_pay }}" alt="Secure Payment QR Code" >
+            </div>
+        </div>
+        <br>
+        <div class="content">
+            {% if first_mailer %}
+                <p>
+                    Our records indicate that you owe <strong>${{ citation.fine.fine }}</strong> to 
+                    <span class="highlight">{{ agency_name }}</span> 
+                    and have not submitted payment for your 
+                    <span class="highlight">TRAFFIC VIOLATION</span>. 
+                    Therefore, an additional late payment fee of {{pre_odr_fine_scheduler.first_mailer_fine_per}}% of the total debt has been added, and the new amount owed is 
+                    <strong>${{ unpaidcitation.first_mail_fine }}</strong>.You will have sixty (60) days to pay your new balance before the debt will considered 
+                    final and will be transferred to the Louisiana Office of Debt Recovery. After transfer, the debt is subject to an additional collection fee of up
+                    to twenty-five percent (25%) of the total debt liability, as provided for in LA R.S.47:1676 (E).
+                </p>
+            {% endif %}
+            {% if second_mailer %}
+                <p>
+                    Our records indicate that you owe <strong>${{ citation.fine.fine }}</strong> to the
+                    <span class="highlight">{{ agency_name }}</span> for a traffic violation and have not submitted payment.
+                    Therefore, an additional late payment fee of {{pre_odr_fine_scheduler.second_mailer_fine_per}}% of the total debt has been added, and the new amount owed is 
+                    <strong>${{ first_mailer_fine_without_discount }}</strong>. You will have thirty (30) days to pay your new balance before the debt will be considered final and will be transferred to the Louisiana Office of Debt Recovery. <br> <br>
+                    After transfer, the debt is subject to an additional collection fee of up to twenty-five percent (25%) of the total debt liability, as provided for in LA R.S. 47:1676 (E). Please note that ODR will file a claim with the UNITED
+                    STATES TREASURY OFFSET PROGRAM. All payments “eligible for offset” will be seized, up to the amount of your debt plus any additional fees.
+                    
+                </p>
+            {% endif %}
+
+            <p style="color: black; font-style: italic;">Please see the fine amount increase table below</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="color: black;">Delinquent Debt Fine Table</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Amount Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Original Debt 30 days to pay</td>
+                        <td>{{initial_time_app}}</td>
+                        <td>{{unpaidcitation.arr_date}}</td>
+                        <td>${{ citation.fine.fine }}</td>
+                    </tr>
+                    <tr>
+                        <td>Past Due Debt 30 days to pay</td>
+                        <td>{{second_mail_date_time_app}}</td>
+                        <td>{{ formatted_second_mail_due_date }}</td>
+                        <td>${{first_mailer_fine_without_discount}}</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>10% Discount if paid in 30 days </td>
+                        <td>{{first_mail_date_time_app}}</td>
+                        <td>{{first_mail_due_date_with_discount}}</td> 
+                        {% comment %} Upto second mailer start {% endcomment %}
+                        <td>${{first_mailer_fine_amount_discount}}</td>
+                    </tr> -->
+                    
+                </tbody>
+            </table>
+
+            <p>
+                Please visit <a href="https://www.cityofmarksville.com/about-3-1"> https://www.cityofmarksville.com/about-3-1</a> to make a payment. 
+                You may also enclose payment in the form of a money order, cashier’s check, or bank certified check in the total amount 
+                of the debt payable to <span class="highlight">{{ agency_name }}</span> prior to thirty (30) days. 
+                Payments may be mailed to <span class="highlight">{{ agency_name }}, 422 N Main St, Marksville, LA 71351.</span>
+            </p>
+
+            <p>
+                Upon transfer of the debt to the Louisiana Office of Debt Recovery, 
+                <span class="highlight">{{ agency_name }}</span> 
+                shall terminate all collection activities with respect to that debt. 
+                A claim will be filed with the United States Treasury Offset Program. 
+                All payments “eligible for offset” will be seized, up to the amount of your debt, plus any additional fees.
+            </p>
+
+            <p>
+                Should you have any questions regarding your delinquent debt, please call 
+                <strong>(318)253-9250</strong>.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for your prompt attention.</p>
+            <p>Sincerely,</p>
+            <p><span class="highlight">{{ agency_name }}</span></p>
+        </div>
+    </div>
+</body>
+</html>

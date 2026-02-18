@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <style>
+        body {
+            font-family: \'Liberation Serif\', sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-reminder {
+            padding: 0px;
+        }
+
+        .violator-info {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .content {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .content p {
+            margin: 20px 0;
+            line-height: 1.6; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 5px;
+        }
+
+        th {
+            background-color:white;
+            color:black;
+        }
+        .combined-column-reminder {
+            display: table-cell;
+            font-size: 20px;
+            font-weight: bold;
+            width: 50%;
+        }
+        .badge-remainder {
+            display: inline-block;
+            width: 100%;
+        }
+        .badge-remainder {
+            object-fit: contain;
+            height: 200px;
+            width:auto;
+            margin-top: -10px;
+            /* background-color: tomato; */
+        }
+        .first-column {
+            max-width: 40%;
+            font-size: 20px;
+        }
+        .first-row {
+            display: -webkit-box;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-bottom: 150px;
+            margin-top: 10px;
+        }
+        .first-row {
+           justify-content: space-between;
+       }
+       
+        .second-row.top-adjust {
+            position: relative;
+            top: 40px; /* moves it down by 30px */
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="second-column">
+        <div class="img-container" style="position: absolute; top: -10px; left: 40%; transform: translateX(-50%); padding: 10px;">
+            <img alt="badge-remainder" class="badge-remainder" src="{{agency.badge_url}}" />
+        </div>
+    </div>
+    <div class="container-reminder">
+        <div class="combined-column-reminder">
+            <div class="first-row">
+                <div class="first-column">
+                    <p>Town of Hudson<br>
+                        Hudson Police Dept.<br>
+                        50 S. Beech St.<br>
+                        Hudson,CO 80642</p>
+                </div>
+            </div>
+            <div class="second-row top-adjust">
+                <p style="font-weight: normal;">
+                    VIOLATOR INFO:<br>
+                    <br> 
+                    {{per.first_name}} {{per.middle}} {{per.last_name}}<br>
+                    {{per.address}} <br>
+                    {{per.city}}, {{per.state}} {{per.zip}}
+                </p>
+            </div>
+            {% if s3_url_qr_code %}
+                 <div style="position: absolute; top: -10px; right: 50px; padding: 10px; text-align: center;">
+                    <img src="{{s3_url_qr_code}}" alt="QR_CODE" width="140px" height="140px">
+                    <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: bold; color: hsl(14, 100%, 64%)">
+                        SCAN TO PAY
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="content">
+        <h3>NOTICE OF NON-PAYMENT:</h3>
+        <p>This notification is to inform you that our records indicate you have not submitted payment for TRAFFIC CITATION {{cit.citationID}} in the amount of <strong>$40.00</strong>.</p>
+        <p style="font-weight: bold; text-align: center;">Original Citation on the Back of this reminder</p>
+        <p>We are sending this reminder as a courtesy to give you another opportunity to pay this citation. We appreciate your prompt payment.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>FINE TABLE</th>
+                    <th>VIOLATION DATE</th>
+                    <th>ISSUE DATE</th>
+                    <th>DUE DATE</th>
+                    <th>AMOUNT DUE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Original Citation</td>
+                    <td>{{ date_violation }}</td>
+                    <td>{{ original_app_date }}</td>
+                    <td>{{original_due_date}}</td>
+                    <td>$ {{cit.fine}}</td>
+                </tr>
+                <tr>
+                    <td>First Notice</td>
+                    <td> </td>
+                    <td>{{ date_app }}</td>
+                    <td>{{due_date}}</td>
+                    <td>$ {{cit.fine}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Please visit <a href="{{agency.pay_portal}}">{{agency.pay_portal}}</a> to make an online payment. You may also endorse payment through a money order, cashier's check, or bank-certified check for the amount due payable to the <strong>Town of Hudson</strong>. Payments may be mailed to the Town of Hudson, 50 S. Beech St. Hudson, CO. 80642.</p>
+        <p>If you have any questions regarding your delinquent payment, please call: (303) 536-4889, Option 6.</p>
+        <p>Thank you for your prompt attention.</p>
+
+        <p>Sincerely,<br>Town of Hudson</p>
+    </div>
+
+</body>
+</html>
