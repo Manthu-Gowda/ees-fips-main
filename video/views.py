@@ -93,7 +93,9 @@ last_email_sent = None
 import logging
 from logging.handlers import RotatingFileHandler
 
-LOG_FILE = r"C:\Users\Administrator\Documents\ees\logs\task_scheduler.log"
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+LOG_FILE =os.path.join(LOG_DIR, "ees_app_logs.log")
 
 if not os.path.exists(os.path.dirname(LOG_FILE)):
     os.makedirs(os.path.dirname(LOG_FILE))

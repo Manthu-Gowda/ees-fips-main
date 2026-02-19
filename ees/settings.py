@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 path_to_wkhtmltopdf = "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"  # This is the usual path if you installed with brew
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True 
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(" ")
 # ALLOWED_HOSTS = ["*"]
@@ -109,8 +109,11 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = False
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = False
+SECURE_PROXY_SSL_HEADER = None
+
 
 SECURE_HSTS_SECONDS = 3600  
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -252,7 +255,8 @@ SWAGGER_SETTINGS = {
             "name": "Authorization",
             "in": "header",
             "description": "Bearer <token>",
-        }
+        },
+        "DEFAULT_API_URL": "http://localhost:8000",
     },
     "USE_SESSION_AUTH": False, 
     "LOGIN_URL": None,  
